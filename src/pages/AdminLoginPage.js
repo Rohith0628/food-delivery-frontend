@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
 import axios from '../api';
 import { useNavigate } from 'react-router-dom';
-import './Auth.css';
 
-export default function RegisterPage() {
-  const [form, setForm] = useState({
-    username: '',
-    password: ''
-  });
-
+export default function AdminLoginPage() {
+  const [form, setForm] = useState({ username: '', password: '' });
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     if (!form.username || !form.password) {
       alert("All fields are required");
       return;
     }
 
     try {
-      await axios.post('/auth/register', form);
-      alert('Registered successfully! Please log in.');
-      navigate('/login');
+      const res = await axios.post('/auth/login', form);
+      if (res.data.role !== 'admin') {
+        alert("Access denied. Admins only.");
+        return;
+      }
+      localStorage.setItem('token', res.data.token);
+      navigate('/admin/dashboard');
     } catch (err) {
-      alert(err.response?.data?.message || 'Registration failed');
+      alert(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
     <div className="auth-container">
-      <h2>Register</h2>
+      <h2>Admin Login</h2>
       <input
         type="text"
-        placeholder="Name"
+        placeholder="Username"
         value={form.username}
         onChange={(e) => setForm({ ...form, username: e.target.value })}
       />
@@ -41,10 +40,7 @@ export default function RegisterPage() {
         value={form.password}
         onChange={(e) => setForm({ ...form, password: e.target.value })}
       />
-      <button onClick={handleRegister}>Register</button>
-      <p>
-        Already have an account? <a href="/login">Login</a>
-      </p>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
