@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
-import axios from '../api';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function AdminLoginPage() {
-  const [form, setForm] = useState({ username: '', password: '' });
+const AdminLogin = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    if (!form.username || !form.password) {
-      alert("All fields are required");
-      return;
-    }
-
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      const res = await axios.post('/auth/login', form);
-      if (res.data.role !== 'admin') {
-        alert("Access denied. Admins only.");
+      const res = await axios.post('http://localhost:5000/api/auth/login', {
+        username,
+        password,
+      });
+
+      const token = res.data.token;
+
+      // Decode JWT token to extract role
+      const decoded = JSON.parse(atob(token.split('.')[1]));
+      if (decoded.role !== 'admin') {
+        alert('Access denied. Not an admin.');
         return;
       }
-      localStorage.setItem('token', res.data.token);
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', decoded.role); // Optional
+
       navigate('/admin/dashboard');
     } catch (err) {
       alert(err.response?.data?.message || 'Login failed');
@@ -26,21 +34,31 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="auth-container">
+    <div style={{ padding: '2rem', maxWidth: '400px', margin: 'auto' }}>
       <h2>Admin Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={form.username}
-        onChange={(e) => setForm({ ...form, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          placeholder="Username"
+          required
+          style={{ display: 'block', width: '100%', marginBottom: '1rem', padding: '0.5rem' }}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+          style={{ display: 'block', width: '100%', marginBottom: '1rem', padding: '0.5rem' }}
+        />
+        <button type="submit" style={{ width: '100%', padding: '0.5rem' }}>
+          Login
+        </button>
+      </form>
     </div>
   );
-}
+};
+
+export default AdminLogin;

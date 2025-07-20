@@ -9,12 +9,18 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('/auth/login', form); // sends { username, password } to backend
-      localStorage.setItem('token', res.data.token); // stores JWT for auth
+      const res = await axios.post('/auth/login', form);
+      // Store token and role
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', res.data.role); // Important for Navbar
+      
+      // Dispatch a custom event to notify the Navbar of the change
+      window.dispatchEvent(new Event('storageChange'));
+      
       alert('Login successful!');
-      navigate('/'); // redirect to homepage
+      navigate('/');
     } catch (err) {
-      alert(err.response?.data || 'Login failed');
+      alert(err.response?.data?.message || 'Login failed');
     }
   };
 
