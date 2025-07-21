@@ -6,13 +6,15 @@ import './Auth.css';
 export default function RegisterPage() {
   const [form, setForm] = useState({
     username: '',
-    password: ''
+    password: '',
+    email: '',
+    phone: ''
   });
 
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    if (!form.username || !form.password) {
+    if (!form.username || !form.password || !form.email || !form.phone) {
       alert("All fields are required");
       return;
     }
@@ -29,22 +31,11 @@ export default function RegisterPage() {
   return (
     <div className="auth-container">
       <h2>Register</h2>
-      <input
-        type="text"
-        placeholder="Name"
-        value={form.username}
-        onChange={(e) => setForm({ ...form, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-      />
+      <input type="text" placeholder="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })}/>
+      <input type="password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}/>
+      <input type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/>
+      <input type="tel" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}/>
       <button onClick={handleRegister}>Register</button>
-      <p>
-        Already have an account? <a href="/login">Login</a>
-      </p>
     </div>
   );
 }
