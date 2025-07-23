@@ -1,0 +1,17 @@
+.circular-text {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-family: var(--font-retro);
+  font-size: 24px;
+}
+
+.circular-text span {
+  position: absolute;
+  transform-origin: center;
+  color: var(--primary-color);
+}

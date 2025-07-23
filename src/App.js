@@ -10,7 +10,8 @@ import ProfilePage from './pages/ProfilePage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRegister from './pages/AdminRegister';
-import AdminOrderManagement from './pages/AdminOrderManagement'; // <-- Import the new page
+import AdminOrderManagement from './pages/AdminOrderManagement';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       <Navbar />
       <Routes>
         {/* User Routes */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurant/:id" element={<RestaurantMenuPage />} />

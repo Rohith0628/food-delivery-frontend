@@ -50,14 +50,12 @@ const AdminDashboard = () => {
     const formData = new FormData();
     formData.append('image', imageFile);
     try {
-      const res = await apiClient.post('/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      // The backend returns a path like /uploads/filename.jpeg
-      // We prepend the server's base URL to make it a full URL
+      const res = await apiClient.post('/upload', formData);
+      // Backend returns a path like /uploads/image-123.jpg
+      // Prepend the server's address to make it a full URL
       return `http://localhost:5000${res.data.filePath}`;
     } catch (err) {
-      alert('Image upload failed. Please ensure the file is a valid image and under 1MB.');
+      alert(err.response?.data?.message || 'Image upload failed.');
       return null;
     }
   };
@@ -72,10 +70,10 @@ const AdminDashboard = () => {
       address: restaurantAddress,
       image: imageUrl
     });
+    e.target.reset();
     setRestaurantName('');
     setRestaurantAddress('');
     setRestaurantImage(null);
-    document.getElementById('restaurant-image-input').value = null; // Clear file input
     fetchRestaurants();
   };
 
@@ -89,6 +87,7 @@ const AdminDashboard = () => {
       description: menuDescription,
       image: imageUrl
     });
+    e.target.reset();
     setMenuName('');
     setMenuPrice('');
     setMenuDescription('');
@@ -112,17 +111,15 @@ const AdminDashboard = () => {
     fetchRestaurants();
   };
   
-  const handleUpdateMenuItem = async (e, restaurantId, imageFile) => {
+   const handleUpdateMenuItem = async (e, restaurantId) => {
     e.preventDefault();
+    const imageFile = e.target.image.files[0];
     let imageUrl = editingMenuItem.image;
     if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-        if (!imageUrl) return;
+      imageUrl = await uploadImage(imageFile);
+      if (!imageUrl) return;
     }
-    await apiClient.put(`/restaurants/${restaurantId}/menu/${editingMenuItem._id}`, {
-        ...editingMenuItem,
-        image: imageUrl
-    });
+    await apiClient.put(`/restaurants/${restaurantId}/menu/${editingMenuItem._id}`, { ...editingMenuItem, image: imageUrl });
     setEditingMenuItem(null);
     fetchRestaurants();
   };
@@ -149,12 +146,7 @@ const AdminDashboard = () => {
     }
   };
 
-
-  // --- Render Logic ---
-  if (error) return <div className="container"><h2>Error: {error}</h2></div>;
-  if (!token) return <div className="container"><h2>Access Denied</h2></div>;
-
-  return (
+ return (
     <div className="container">
       <h2>Admin Dashboard</h2>
       <Link to="/admin/orders" className="button" style={{marginBottom: '20px', display: 'inline-block'}}>
@@ -166,7 +158,7 @@ const AdminDashboard = () => {
         <h3>Add Restaurant</h3>
         <input placeholder="Name" value={restaurantName} onChange={e => setRestaurantName(e.target.value)} required />
         <input placeholder="Address" value={restaurantAddress} onChange={e => setRestaurantAddress(e.target.value)} required />
-        <input type="file" id="restaurant-image-input" onChange={e => setRestaurantImage(e.target.files[0])} />
+        <input type="file" onChange={e => setRestaurantImage(e.target.files[0])} />
         <button type="submit">Add Restaurant</button>
       </form>
 
@@ -179,7 +171,7 @@ const AdminDashboard = () => {
         <input placeholder="Item Name" value={menuName} onChange={e => setMenuName(e.target.value)} required />
         <input placeholder="Price" type="number" value={menuPrice} onChange={e => setMenuPrice(e.target.value)} required />
         <input placeholder="Description" value={menuDescription} onChange={e => setMenuDescription(e.target.value)} required />
-        <input type="file" id="menu-image-input" onChange={e => setMenuImage(e.target.files[0])} />
+        <input type="file" onChange={e => setMenuImage(e.target.files[0])} />
         <button type="submit">Add Item</button>
       </form>
 
@@ -188,10 +180,7 @@ const AdminDashboard = () => {
       {restaurants.map(res => (
         <div key={res._id} className="card">
           {editingRestaurant?._id === res._id ? (
-            <form onSubmit={(e) => {
-                const imageFile = e.target.image?.files[0];
-                handleUpdateRestaurant(e, imageFile);
-            }}>
+            <form onSubmit={handleUpdateRestaurant}>
               <input type="text" value={editingRestaurant.name} onChange={e => setEditingRestaurant({...editingRestaurant, name: e.target.value})} />
               <input type="text" value={editingRestaurant.address} onChange={e => setEditingRestaurant({...editingRestaurant, address: e.target.value})} />
               <input type="file" name="image" />
@@ -201,8 +190,8 @@ const AdminDashboard = () => {
           ) : (
             <div>
               <strong>{res.name}</strong> - {res.address}
-              <button onClick={() => setEditingRestaurant(res)} style={{ marginLeft: '10px' }}>Edit</button>
-              <button onClick={() => handleDeleteRestaurant(res._id)} style={{ float: 'right', backgroundColor: 'red', color: 'white' }}>Delete</button>
+              <button onClick={() => setEditingRestaurant(res)}>Edit</button>
+              <button onClick={() => handleDeleteRestaurant(res._id)}>Delete</button>
             </div>
           )}
 
@@ -210,10 +199,7 @@ const AdminDashboard = () => {
           {res.menu.map(item => (
             <li key={item._id}>
               {editingMenuItem?._id === item._id ? (
-                <form onSubmit={(e) => {
-                    const imageFile = e.target.image?.files[0];
-                    handleUpdateMenuItem(e, res._id, imageFile);
-                }}>
+                <form onSubmit={(e) => handleUpdateMenuItem(e, res._id)}>
                   <input type="text" value={editingMenuItem.name} onChange={e => setEditingMenuItem({...editingMenuItem, name: e.target.value})} />
                   <input type="number" value={editingMenuItem.price} onChange={e => setEditingMenuItem({...editingMenuItem, price: e.target.value})} />
                   <input type="text" value={editingMenuItem.description} onChange={e => setEditingMenuItem({...editingMenuItem, description: e.target.value})} />
@@ -224,8 +210,8 @@ const AdminDashboard = () => {
               ) : (
                 <div>
                   {item.name} - ₹{item.price}
-                  <button onClick={() => setEditingMenuItem(item)} style={{ marginLeft: '10px' }}>Edit</button>
-                  <button onClick={() => handleDeleteMenuItem(res._id, item._id)} style={{ marginLeft: '10px' }}>Delete</button>
+                  <button onClick={() => setEditingMenuItem(item)}>Edit</button>
+                  <button onClick={() => handleDeleteMenuItem(res._id, item._id)}>Delete</button>
                 </div>
               )}
             </li>
@@ -235,5 +221,5 @@ const AdminDashboard = () => {
     </div>
   );
 };
-
 export default AdminDashboard;
+

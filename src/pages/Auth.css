@@ -1,26 +1,35 @@
 /* src/pages/Auth.css */
 .auth-container {
-  max-width: 450px;
-  margin: 50px auto;
-  padding: 30px;
-  border: var(--border-width) solid var(--border-color);
-  background: #fff;
-  box-shadow: var(--border-width) var(--border-width) 0px var(--secondary-color);
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: var(--border-radius);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow);
 }
 
 .auth-container h2 {
   text-align: center;
   margin-bottom: 2rem;
+  font-size: 2.5rem;
 }
 
 .auth-container input {
   width: 100%;
-  padding: 12px;
+  padding: 15px;
   margin-bottom: 20px;
-  border: var(--border-width) solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: 16px;
   box-sizing: border-box;
+  background-color: var(--background-color);
+}
+
+.auth-container input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-color);
 }
 
 .auth-container .button {
@@ -30,11 +39,16 @@
 .auth-container p {
   text-align: center;
   margin-top: 20px;
-  font-size: 18px;
+  color: var(--text-color-muted);
 }
 
 .auth-container p a {
-  color: var(--primary-color);
-  text-decoration: underline;
-  font-weight: bold;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.auth-container p a:hover {
+  border-bottom-color: var(--text-color);
 }

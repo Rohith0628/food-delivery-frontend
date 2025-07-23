@@ -1,98 +1,84 @@
 /* src/styles.css */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600&display=swap');
 
-/* --- Light Theme (Default) --- */
 :root {
-  --primary-color: #FA824C;   /* Retro Orange */
-  --secondary-color: #1E2D2F; /* Dark Slate */
-  --background-color: #FDF6E3; /* Beige/Cream */
-  --text-color: #3C3C3C;      /* Dark Gray */
-  --border-color: #1E2D2F;
-  --card-background: #FFFFFF;
-  --font-retro: 'Press Start 2P', cursive;
-  --font-body: 'VT323', monospace;
-  --border-width: 4px;
-}
+  /* 1. Your new aesthetic color palette */
+  --background-color: #F2F2F2; /* Lightest Gray */
+  --surface-color: #FFFFFF;    /* White for cards */
+  --accent-color: #EAE4D5;     /* Warm Beige for accents */
+  --text-color: #000000;       /* Black for primary text */
+  --text-color-muted: #B6B09F; /* Muted tan for secondary text */
+  --border-color: #EAE4D5;
 
-/* --- Dark Theme Palette --- */
-body[data-theme="dark"] {
-  --primary-color: #03DAC6;   /* Vibrant Teal from your image */
-  --secondary-color: #BB86FC; /* Soft Purple from your image */
-  --background-color: #121212; /* Near Black from your image */
-  --text-color: #E0E0E0;      /* Light Gray for text */
-  --border-color: #03DAC6;      /* Teal border for contrast */
-  --card-background: #1E1E1E; /* Dark Gray for cards */
+  /* 2. New elegant typography */
+  --font-display: 'Lora', serif;
+  --font-body: 'Poppins', sans-serif;
+  
+  --border-radius: 8px;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
-
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-body);
-  font-size: 22px;
   margin: 0;
   padding: 0;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s, color 0.3s;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-retro);
-  color: var(--secondary-color);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-color);
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* --- Retro Card Style --- */
+/* --- Aesthetic Card Style --- */
 .card {
-  background: var(--card-background);
-  border: var(--border-width) solid var(--border-color);
-  margin-bottom: 20px;
-  padding: 20px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: var(--border-width) var(--border-width) 0px var(--secondary-color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 25px;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: calc(var(--border-width) * 2) calc(var(--border-width) * 2) 0px var(--secondary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* --- Retro Button Style --- */
+/* --- Aesthetic Button Style --- */
 .button {
-  font-family: var(--font-retro);
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #121212; /* Keep button text dark for readability on vibrant backgrounds */
-  background-color: var(--primary-color);
-  border: var(--border-width) solid var(--border-color);
-  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: var(--accent-color);
+  border: 2px solid var(--text-color);
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  box-shadow: var(--border-width) var(--border-width) 0px var(--border-color);
-  transition: all 0.1s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: calc(var(--border-width) - 2px) calc(var(--border-width) - 2px) 0px var(--border-color);
+  background-color: var(--text-color);
+  color: white;
 }
 
-.button:active {
-  transform: translate(var(--border-width), var(--border-width));
-  box-shadow: 0px 0px 0px var(--border-color);
-}
-
-/* --- Retro Navbar Style --- */
+/* --- Aesthetic Navbar Style --- */
 .navbar {
-  background-color: var(--primary-color);
-  border-bottom: var(--border-width) solid var(--border-color);
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -100,27 +86,51 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-brand {
-  font-family: var(--font-retro);
-  font-size: 1.5rem;
-  color: var(--background-color); /* Use contrasting background color for text */
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--text-color);
   text-decoration: none;
 }
 
 .navbar-buttons .navbar-button {
-  font-family: var(--font-retro);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
   text-decoration: none;
-  background-color: var(--background-color);
-  color: var(--secondary-color);
-  border: var(--border-width) solid var(--border-color);
-  padding: 8px 12px;
-  margin-left: 10px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color-muted);
+  padding: 8px 16px;
+  margin-left: 12px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  box-shadow: var(--border-width) var(--border-width) 0px var(--border-color);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.3s ease;
 }
 
 .navbar-buttons .navbar-button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: calc(var(--border-width) - 2px) calc(var(--border-width) - 2px) 0px var(--border-color);
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+  color: white;
+}
+
+/* --- Responsive Grid for Restaurant List --- */
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .navbar-brand {
+    margin-bottom: 1rem;
+  }
 }
