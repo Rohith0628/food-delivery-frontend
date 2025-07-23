@@ -17,22 +17,21 @@ export default function RestaurantMenuPage() {
       await axios.post('/cart/add', { ...item, quantity: 1 });
       alert('Added to cart!');
     } catch (err) {
-      // --- THIS IS THE FIX ---
-      // Display the actual error message from the backend, not a generic one.
+    
       const errorMessage = err.response?.data?.message || 'An error occurred. Please log in and try again.';
       console.error("Add to cart error:", err.response); // For developer debugging
       alert(errorMessage);
     }
   };
 
-  return (
-    <div style={{ padding: '20px' }}>
+ return (
+    <div className="container">
       <h2>Menu</h2>
       {menu.map((item) => (
-        <div key={item._id} style={{ border: '1px solid #ddd', padding: '10px', marginBottom: '10px' }}>
+        <div key={item._id} className="card">
           <h3>{item.name} - ₹{item.price}</h3>
           <p>{item.description}</p>
-          <button onClick={() => addToCart(item)}>Add to Cart</button>
+          <button onClick={() => addToCart(item)} className="button">Add to Cart</button>
         </div>
       ))}
     </div>

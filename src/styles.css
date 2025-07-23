@@ -1,88 +1,126 @@
-/* Shared styles for buttons, cards, containers, etc. */
+/* src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
+/* --- Light Theme (Default) --- */
 :root {
-  --primary-color: #007bff;
-  --primary-color-dark: #0056b3;
-  --background-color: #f8f9fa;
-  --text-color: #212529;
-  --border-radius: 8px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --primary-color: #FA824C;   /* Retro Orange */
+  --secondary-color: #1E2D2F; /* Dark Slate */
+  --background-color: #FDF6E3; /* Beige/Cream */
+  --text-color: #3C3C3C;      /* Dark Gray */
+  --border-color: #1E2D2F;
+  --card-background: #FFFFFF;
+  --font-retro: 'Press Start 2P', cursive;
+  --font-body: 'VT323', monospace;
+  --border-width: 4px;
 }
+
+/* --- Dark Theme Palette --- */
+body[data-theme="dark"] {
+  --primary-color: #03DAC6;   /* Vibrant Teal from your image */
+  --secondary-color: #BB86FC; /* Soft Purple from your image */
+  --background-color: #121212; /* Near Black from your image */
+  --text-color: #E0E0E0;      /* Light Gray for text */
+  --border-color: #03DAC6;      /* Teal border for contrast */
+  --card-background: #1E1E1E; /* Dark Gray for cards */
+}
+
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: var(--font-family);
+  font-family: var(--font-body);
+  font-size: 22px;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-retro);
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
 }
 
+/* --- Retro Card Style --- */
 .card {
-  background: white;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: 20px;
+  background: var(--card-background);
+  border: var(--border-width) solid var(--border-color);
   margin-bottom: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
+  padding: 20px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--border-width) var(--border-width) 0px var(--secondary-color);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  transform: translate(-4px, -4px);
+  box-shadow: calc(var(--border-width) * 2) calc(var(--border-width) * 2) 0px var(--secondary-color);
 }
 
+/* --- Retro Button Style --- */
 .button {
+  font-family: var(--font-retro);
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #121212; /* Keep button text dark for readability on vibrant backgrounds */
   background-color: var(--primary-color);
-  color: white;
-  border: none;
+  border: var(--border-width) solid var(--border-color);
   padding: 10px 16px;
-  border-radius: var(--border-radius);
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  box-shadow: var(--border-width) var(--border-width) 0px var(--border-color);
+  transition: all 0.1s ease-in-out;
 }
 
 .button:hover {
-  background-color: var(--primary-color-dark);
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--border-width) - 2px) calc(var(--border-width) - 2px) 0px var(--border-color);
 }
 
+.button:active {
+  transform: translate(var(--border-width), var(--border-width));
+  box-shadow: 0px 0px 0px var(--border-color);
+}
+
+/* --- Retro Navbar Style --- */
 .navbar {
   background-color: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
+  border-bottom: var(--border-width) solid var(--border-color);
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .navbar-brand {
-  font-weight: bold;
+  font-family: var(--font-retro);
   font-size: 1.5rem;
+  color: var(--background-color); /* Use contrasting background color for text */
+  text-decoration: none;
 }
 
-.navbar-buttons button {
-  margin-left: 12px;
-}
-
-.navbar-button {
-  background-color: white;
-  color: var(--primary-color);
-  border: none;
-  padding: 6px 12px;
-  border-radius: var(--border-radius);
+.navbar-buttons .navbar-button {
+  font-family: var(--font-retro);
+  font-size: 12px;
+  text-decoration: none;
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  border: var(--border-width) solid var(--border-color);
+  padding: 8px 12px;
+  margin-left: 10px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  box-shadow: var(--border-width) var(--border-width) 0px var(--border-color);
+  transition: all 0.1s ease-in-out;
 }
 
-.navbar-button:hover {
-  background-color: #e6e6e6;
+.navbar-buttons .navbar-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--border-width) - 2px) calc(var(--border-width) - 2px) 0px var(--border-color);
 }
