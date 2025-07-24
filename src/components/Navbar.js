@@ -28,6 +28,8 @@ export default function Navbar() {
             <Link to="/cart" className="navbar-button">Cart</Link>
             <Link to="/orders" className="navbar-button">Orders</Link>
             <Link to="/profile" className="navbar-button">Profile</Link>
+            <Link to="/favorites" className="navbar-button">Favorites</Link>
+            <Link to="/favorite-items" className="navbar-button">Favorite Items</Link> {/* Link to the new Favorite Items page */}
             <button onClick={handleLogout} className="navbar-button">Logout</button>
           </>
         ) : (

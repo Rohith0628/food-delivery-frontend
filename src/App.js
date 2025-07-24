@@ -12,6 +12,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminRegister from './pages/AdminRegister';
 import AdminOrderManagement from './pages/AdminOrderManagement';
 import LandingPage from './pages/LandingPage';
+import FavoritesPage from './pages/FavoritesPage';
+import FavoriteItemsPage from './pages/FavoriteItemsPage'; // Import the new Favorites page
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
       <Navbar />
       <Routes>
         {/* User Routes */}
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -27,6 +29,9 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/favorite-items" element={<FavoriteItemsPage />} /> {/* <-- Add the new route for favorite items */}
+
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
