@@ -1,19 +1,16 @@
-/* src/styles.css */
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600&display=swap');
 
 :root {
-  /* 1. Your new aesthetic color palette */
-  --background-color: #F2F2F2; /* Lightest Gray */
-  --surface-color: #FFFFFF;    /* White for cards */
-  --accent-color: #EAE4D5;     /* Warm Beige for accents */
-  --text-color: #000000;       /* Black for primary text */
-  --text-color-muted: #B6B09F; /* Muted tan for secondary text */
+  --background-color: #F2F2F2;
+  --surface-color: hsl(0, 0%, 100%);
+  --accent-color: #EAE4D5;
+  --text-color: #000000;
+  --text-color-muted: #B6B09F;
   --border-color: #EAE4D5;
 
-  /* 2. New elegant typography */
   --font-display: 'Lora', serif;
   --font-body: 'Poppins', sans-serif;
-  
+
   --border-radius: 8px;
   --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
@@ -32,6 +29,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--text-color);
+  margin-bottom: 0.5rem;
 }
 
 .container {
@@ -40,7 +38,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 2rem;
 }
 
-/* --- Aesthetic Card Style --- */
 .card {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
@@ -49,6 +46,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 25px;
   margin-bottom: 25px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card:hover {
@@ -56,28 +56,30 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* --- Aesthetic Button Style --- */
-.button {
+.button,
+.add-to-cart-btn {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-color);
   background-color: var(--accent-color);
   border: 2px solid var(--text-color);
-  padding: 12px 24px;
+  padding: 8px 16px;
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: fit-content;
+  align-self: flex-start;
 }
 
-.button:hover {
+.button:hover,
+.add-to-cart-btn:hover {
   background-color: var(--text-color);
   color: white;
 }
 
-/* --- Aesthetic Navbar Style --- */
 .navbar {
-  background-color: var(--surface-color);
+  background-color: var(--accent-color);
   border-bottom: 1px solid var(--border-color);
   padding: 1rem 2rem;
   display: flex;
@@ -114,14 +116,56 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
-/* --- Responsive Grid for Restaurant List --- */
 .restaurant-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 25px;
 }
 
-/* --- Media Queries for Responsiveness --- */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  font-size: 16px;
+  background-color: #fff;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--text-color-muted);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.toast-container {
+  z-index: 9999;
+}
+
+.react-toastify__toast {
+  font-family: var(--font-body);
+  border-radius: var(--border-radius);
+  padding: 12px 16px;
+  box-shadow: var(--box-shadow);
+}
+
+.react-toastify__toast--success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.react-toastify__toast--error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -133,4 +177,68 @@ h1, h2, h3, h4, h5, h6 {
   .navbar-brand {
     margin-bottom: 1rem;
   }
+}
+
+/* FavoritesPage specific styling */
+.favorite-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: bold;
+  text-align: center;
+}
+
+.favorite-empty-message {
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--text-color-muted);
+  margin-top: 2rem;
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.card .address {
+  color: var(--text-color-muted);
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.remove-btn {
+  margin-top: 1rem;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #d93636;
+}
+
+.card-header {
+  flex-grow: 1;
+}
+
+.Toastify__toast button {
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0;
+  border: none;
+  border-radius: 4px;
 }

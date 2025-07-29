@@ -1,31 +1,63 @@
-.landing-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 80px); /* Full height minus navbar */
-  text-align: center;
-  overflow: hidden;
+/* Reset and body styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.landing-wrapper {
   position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Blurred background */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('pizza-bg.png'); /* Adjust your path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(12px);
+  z-index: 0;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dark transparent layer */
+  z-index: 1;
 }
 
 .landing-content {
   position: relative;
-  z-index: 1;
-  background-color: rgba(253, 246, 227, 0.7); /* Semi-transparent background */
-  padding: 2rem 4rem;
-  border-radius: var(--border-radius);
+  z-index: 2;
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .landing-title {
+  color :white;
   font-size: 3rem;
   margin-bottom: 1rem;
 }
 
 .landing-subtitle {
   font-size: 1.5rem;
-  margin-bottom: 3rem;
-  color: var(--text-color-light);
+  margin-bottom: 2.5rem;
+  color: #eee;
 }
 
 .circular-text-wrapper {
@@ -35,8 +67,8 @@
 }
 
 .arrow-icon {
-  font-size: 4rem;
-  color: var(--secondary-color);
+  font-size: 3rem;
+  color: var(--secondary-color, #ffc107);
   position: absolute;
   top: 50%;
   left: 50%;

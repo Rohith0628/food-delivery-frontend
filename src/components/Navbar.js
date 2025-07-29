@@ -21,15 +21,17 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">FoodApp</Link>
+      <Link to="/" className="navbar-brand">SwiftServe</Link>
       <div className="navbar-buttons">
+        <Link to="/home" className="navbar-button">Home</Link> {/* ✅ Home Button */}
+
         {token ? (
           <>
             <Link to="/cart" className="navbar-button">Cart</Link>
             <Link to="/orders" className="navbar-button">Orders</Link>
             <Link to="/profile" className="navbar-button">Profile</Link>
             <Link to="/favorites" className="navbar-button">Favorites</Link>
-            <Link to="/favorite-items" className="navbar-button">Favorite Items</Link> {/* Link to the new Favorite Items page */}
+            <Link to="/favorite-items" className="navbar-button">Favorite Items</Link>
             <button onClick={handleLogout} className="navbar-button">Logout</button>
           </>
         ) : (

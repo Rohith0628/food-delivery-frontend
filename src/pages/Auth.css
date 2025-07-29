@@ -1,54 +1,65 @@
-/* src/pages/Auth.css */
+/* Auth.css */
+
 .auth-container {
   max-width: 400px;
-  margin: 60px auto;
-  padding: 40px;
-  border-radius: var(--border-radius);
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--box-shadow);
+  margin: 100px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .auth-container h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
 }
 
 .auth-container input {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  font-family: var(--font-body);
-  font-size: 16px;
-  box-sizing: border-box;
-  background-color: var(--background-color);
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s ease;
 }
 
 .auth-container input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px var(--accent-color);
+  border-color: #ff6347; /* Tomato or theme color */
 }
 
-.auth-container .button {
+.auth-container button {
   width: 100%;
+  padding: 12px;
+  background-color: #ff6347; /* Tomato or theme color */
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-container button:hover {
+  background-color: #e5533d;
 }
 
 .auth-container p {
-  text-align: center;
-  margin-top: 20px;
-  color: var(--text-color-muted);
+  margin-top: 1rem;
+  font-size: 0.95rem;
 }
 
-.auth-container p a {
-  color: var(--text-color);
+.auth-container a {
+  color: #ff6347;
   text-decoration: none;
-  font-weight: 600;
-  border-bottom: 2px solid var(--accent-color);
+  font-weight: 500;
 }
 
-.auth-container p a:hover {
-  border-bottom-color: var(--text-color);
+.auth-container a:hover {
+  text-decoration: underline;
 }

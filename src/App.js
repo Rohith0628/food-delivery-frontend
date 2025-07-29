@@ -13,12 +13,16 @@ import AdminRegister from './pages/AdminRegister';
 import AdminOrderManagement from './pages/AdminOrderManagement';
 import LandingPage from './pages/LandingPage';
 import FavoritesPage from './pages/FavoritesPage';
-import FavoriteItemsPage from './pages/FavoriteItemsPage'; // Import the new Favorites page
+import FavoriteItemsPage from './pages/FavoriteItemsPage'; 
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <Router>
       <Navbar />
+
       <Routes>
         {/* User Routes */}
         <Route path="/" element={<LandingPage />} />
@@ -30,15 +34,27 @@ function App() {
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/favorite-items" element={<FavoriteItemsPage />} /> {/* <-- Add the new route for favorite items */}
-
+        <Route path="/favorite-items" element={<FavoriteItemsPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/register" element={<AdminRegister />} />
-        <Route path="/admin/orders" element={<AdminOrderManagement />} /> {/* <-- Add the new route */}
+        <Route path="/admin/orders" element={<AdminOrderManagement />} />
       </Routes>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   );
 }
